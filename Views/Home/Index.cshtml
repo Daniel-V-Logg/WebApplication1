@@ -1,0 +1,32 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <h1 class="welcome-header">Welcome</h1>
+    <h2 class="welcome-header">KhumaloCraft</h2>
+    <p>By Daniel Van Loggerenberg.</p>
+
+    <h3>Users:</h3>
+    <ul>
+        @if (ViewData["Users"] is List<User> users && users != null)
+        {
+            foreach (var user in users)
+            {
+                <li>@user.UserName - @user.UserEmail</li>
+            }
+        }
+        else
+        {
+            <li>No users available.</li>
+        }
+    </ul>
+</div>
+
+<style>
+    .welcome-header {
+        display: flex;
+        align-content: center;
+        justify-content: center;
+    }
+</style>
