@@ -1,0 +1,28 @@
+﻿
+<h2>Orders</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>OrderID</th>
+            <th>UserID</th>
+            <th>ProductID</th>
+            <th>Quantity</th>
+            <th>OrderDate</th>
+            <th>Status</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var order in Model)
+        {
+            <tr>
+                <td>@order.OrderID</td>
+                <td>@order.UserID</td>
+                <td>@order.ProductID</td>
+                <td>@order.Quantity</td>
+                <td>@order.OrderDate</td>
+                <td>@order.Status</td>
+            </tr>
+        }
+    </tbody>
+</table>

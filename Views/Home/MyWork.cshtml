@@ -3,37 +3,121 @@
 }
 
 <h1>@ViewData["Title"]</h1>
+<div class="search-bar">
+    <input type="search" id="search-input" placeholder="Search for products...">
+    <button id="search-btn">Search</button>
+</div>
+
 <p>Information about the craftwork including images, descriptions, and prices.</p>
 
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="/images/hoodie.jpeg" alt="hoodie and I still need to thank the owner">
-    <div class="card-body">
-        <h5 class="card-title">Hoodie</h5>
-        <p class="card-text"><strong>Size: </strong>Medium</p>
-        <p class="card-text"><strong>Colour: </strong>Blue</p>
-        <p class="card-text"><strong>Cost: </strong>R350.00</p>
-        <a href="#" class="btn btn-primary">Buy Me!</a>
+<div id="products-container">
+    <!-- Your products divs here -->
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="/images/hoodie.jpeg" alt="hoodie and I still need to thank the owner">
+        <div class="card-body">
+            <h5 class="card-title">Hoodie</h5>
+            <p class="card-text"><strong>Size: </strong>Medium</p>
+            <p class="card-text"><strong>Colour: </strong>Blue</p>
+            <p class="card-text"><strong>Cost: </strong>R350.00</p>
+            <a href="#" class="btn btn-primary">Buy Me!</a>
+            <!-- The button to open the modal -->
+            <button class="btn btn-primary" id="openModal">Open Modal </button>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="/images/Fleece.jpeg" alt="Fleece and I still need to thank the owner">
+        <div class="card-body">
+            <h5 class="card-title">Tech</h5>
+            <p class="card-text"><strong>Size: </strong>Large</p>
+            <p class="card-text"><strong>Colour: </strong>Grey</p>
+            <p class="card-text"><strong>Cost: </strong>R500.00</p>
+            <a href="#" class="btn btn-primary">Buy Me!</a>
+            <!-- The button to open the modal -->
+            <button class="btn btn-primary" id="openModal">Open Modal </button>
+        </div>
+    </div>
+    <div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="/images/Cargo Pants.jpeg" alt="Cargo Pants and I still need to thank the owner">
+        <div class="card-body">
+            <h5 class="card-title">Pants</h5>
+            <p class="card-text"><strong>Size: </strong>Large</p>
+            <p class="card-text"><strong>Colour: </strong>Grey</p>
+            <p class="card-text"><strong>Cost: </strong>R450.00</p>
+            <a href="#" class="btn btn-primary">Buy Me!</a>
+            <!-- The button to open the modal -->
+            <button class="btn btn-primary" id="openModal">Open Modal </button>
+        </div>
     </div>
 </div>
 
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="/images/Fleece.jpeg" alt="Fleece and I still need to thank the owner">
-    <div class="card-body">
-        <h5 class="card-title">Hoodie</h5>
-        <p class="card-text"><strong>Size: </strong>Large</p>
-        <p class="card-text"><strong>Colour: </strong>Grey</p>
-        <p class="card-text"><strong>Cost: </strong>R500.00</p>
-        <a href="#" class="btn btn-primary">Buy Me!</a>
+<!-- The modal -->
+<div id="myModal" class="modal">
+    <div class="modal-content">
+        <span class="close">&times;</span>
+        <div class="row">
+            <div class="col-md-6">
+                <img class="card-img-top" src="/images/hoodie.jpeg" alt="hoodie and I still need to thank the owner">
+            </div>
+            <div class="col-md-6">
+                <div class="card-body">
+                    <h5 class="card-title">Hoodie</h5>
+                    <p class="card-text"><strong>Size: </strong>Medium</p>
+                    <p class="card-text"><strong>Colour: </strong>Blue</p>
+                    <p class="card-text"><strong>Cost: </strong>R350.00</p>
+                    <a href="#" class="btn btn-primary">Buy Me!</a>
+                </div>
+            </div>
+        </div>
     </div>
 </div>
 
-<div class="card" style="width: 18rem;">
-    <img class="card-img-top" src="/images/Cargo Pants.jpeg" alt="Cargo Pants and I still need to thank the owner">
-    <div class="card-body">
-        <h5 class="card-title">Hoodie</h5>
-        <p class="card-text"><strong>Size: </strong>Large</p>
-        <p class="card-text"><strong>Colour: </strong>Grey</p>
-        <p class="card-text"><strong>Cost: </strong>R450.00</p>
-        <a href="#" class="btn btn-primary">Buy Me!</a>
-    </div>
-</div>
+
+
+<script>
+    // Get the modal and the button
+    var modal = document.getElementById("myModal");
+    var btn = document.getElementById("openModal");
+
+    // Get the <span> element that closes the modal
+    var span = document.getElementsByClassName("close")[0];
+
+    // When the user clicks on the button, open the modal
+    btn.onclick = function () {
+        modal.style.display = "block";
+    }
+
+    // When the user clicks on the close button, close the modal
+    span.onclick = function () {
+        modal.style.display = "none";
+    }
+
+    // When the user clicks anywhere outside of the modal, close it
+    window.onclick = function (event) {
+        if (event.target == modal) {
+            modal.style.display = "none";
+        }
+    }
+
+    //search through product container to filter divs
+    const searchInput = document.getElementById("search-input");
+    const searchBtn = document.getElementById("search-btn");
+    const productsContainer = document.getElementById("products-container");
+
+    searchBtn.addEventListener("click", searchProducts);
+
+    function searchProducts() {
+        const searchQuery = searchInput.value.toLowerCase();
+        const products = productsContainer.querySelectorAll(".card");
+
+        products.forEach((product) => {
+            const productTitle = product.querySelector(".card-title").textContent.toLowerCase();
+            const productDescription = product.querySelector(".card-text").textContent.toLowerCase();
+
+            if (productTitle.includes(searchQuery) || productDescription.includes(searchQuery)) {
+                product.style.display = "block";
+            } else {
+                product.style.display = "none";
+            }
+        });
+    }
+</script>
